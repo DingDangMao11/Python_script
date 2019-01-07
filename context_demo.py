@@ -77,3 +77,46 @@ def log_c(username):
     print('log c %s' % username)
     
 网址输入：http://127.0.0.1:5000/?username=zhiliao
+        
+-------------------------------------------------------------------------------------
+# 改善后的代码
+app.py
+from flask import Flask, current_app, url_for,g,request,session
+from werkzeug.local import Local
+from utils import log_a,log_b,log_c
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    print(url_for('my_list'))
+    username = request.args.get('username')
+    g.username=username
+    log_a()
+    log_b()
+    log_c()
+
+    return 'Hello World!'
+@app.route('/list/')
+def my_list():
+    return 'my list'
+
+with app.test_request_context():
+    # 手动推入一个请求上下文到请求上下文栈中
+    # 如果当前应用上下文栈中没有应用上下文
+    # 那么会首先推入一个应用上下文到栈中
+    print(url_for("my_list"))
+if __name__ == '__main__':
+    app.run()
+    
+# utils.py
+#encoding:utf-8
+from flask import g
+def log_a():
+    print('log a %s' % g.username)
+
+def log_b():
+    print('log b %s' % g.username)
+
+def log_c():
+    print('log c %s' % g.username)
