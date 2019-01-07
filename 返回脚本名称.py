@@ -7,6 +7,7 @@ app = Flask(__name__)
 # 栈
 #方法1
 # app_context = app.app_context()
+# app_context() app上下文，手动推入栈内
 # app_context.push()
 # print(current_app.name)
 #方法2
