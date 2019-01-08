@@ -31,7 +31,47 @@ def before_request():
         g.user = 'zhiliao'
 if __name__ == '__main__':
     app.run()
-    
+
+-------------------------------------------------------------------------
+from flask import Flask,session,g,render_template
+import os
+
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = os.urandom(24)
+
+@app.route('/')
+def index():
+    # 判断g是否有user这个属性
+    if hasattr(g,'user'):
+        print(g.user)
+    return render_template('index.html')
+
+
+@app.route('/list/')
+def my_list():
+    session['user_id'] = 1
+    return render_template('list.html')
+
+
+@app.before_request
+def before_request():
+    user_id = session.get('user_id')
+    if user_id:
+        g.user = 'zhiliao'
+
+# 在所有的页面中显示current_user的值
+@app.context_processor
+def context_processor():
+    # return  {"current_user":'zhiliao'}
+    if hasattr(g, 'user'):
+        return {"current_user": g.user}
+    else:
+        return {}
+if __name__ == '__main__':
+    app.run()
+
+-------------------------------------------------------------------------------------
 ### 常用的钩子函数：
 在Flask中钩子函数是使用特定的装饰器装饰的函数。为什么叫做钩子函数呢，是因为钩子函数可以在正常执行的代码中，插入一段自己想要执行的代码。那么这种函数就叫做钩子函数。（hook）
 1. `before_first_request`：Flask项目第一次部署后会执行的钩子函数。
