@@ -31,7 +31,17 @@ def before_request():
         g.user = 'zhiliao'
 if __name__ == '__main__':
     app.run()
+utils.html
+#encoding:utf-8
+from flask import g
+def log_a():
+    print('log a %s' % g.username)
 
+def log_b():
+    print('log b %s' % g.username)
+
+def log_c():
+    print('log c %s' % g.username)
 -------------------------------------------------------------------------
 from flask import Flask,session,g,render_template
 import os
@@ -71,6 +81,29 @@ def context_processor():
 if __name__ == '__main__':
     app.run()
 
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{ current_user }}
+</body>
+</html>
+
+list.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{ current_user }}
+</body>
+</html>
 -------------------------------------------------------------------------------------
 ### 常用的钩子函数：
 在Flask中钩子函数是使用特定的装饰器装饰的函数。为什么叫做钩子函数呢，是因为钩子函数可以在正常执行的代码中，插入一段自己想要执行的代码。那么这种函数就叫做钩子函数。（hook）
