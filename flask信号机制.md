@@ -14,7 +14,7 @@ fire_signal.connect(fire_bullet)
 3. 发送一个信号
 fire_signal.send()
 ```
-####/2、信号机制案例
+#### 2、信号机制案例
 ```
 app.py
 # encoding : utf-8
