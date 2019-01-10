@@ -1,4 +1,4 @@
-
+#### 信号机制模板
 ```
 from flask import Flask
 from blinker import Namespace
@@ -14,7 +14,7 @@ fire_signal.connect(fire_bullet)
 3. 发送一个信号
 fire_signal.send()
 ```
-
+#### 信号机制案例
 ```
 app.py
 # encoding : utf-8
