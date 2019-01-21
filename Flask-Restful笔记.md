@@ -39,3 +39,41 @@ add_argument可以指定这个字段的名字，这个字段的数据类型等�
 1. url：会判断这个参数的值是否是一个url，如果不是，那么就会抛出异常。 
 2. regex：正则表达式。 
 3. date：将这个字符串转换为datetime.date数据类型。如果转换不成功，则会抛出一个异常。
+
+```
+from flask import Flask
+import config
+from flask_restful import Api,Resource,fields,marshal_with
+
+app = Flask(__name__)
+app.config.from_object(config)
+api = Api(app)
+
+class Article(object):
+    def __init__(self,title,content):
+        self.title = title
+        self.content = content
+
+article = Article(title='abc',content='124325643673')
+class ArticleView(Resource):
+    resource_fields = {
+        'title': fields.String,
+        'content': fields.String
+    }
+    # restful规范中，定义好了返回的参数
+    #即使这个参数没有值，也应该返回，返回一个none回去
+    @marshal_with(resource_fields)
+    def get(self):
+        #return {"title":'xxx',"content":'xxx'}
+        #return {"title": 'xxx'}
+        return article
+api.add_resource(ArticleView,'/article/',endpoint='article')
+
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
