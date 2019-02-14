@@ -67,3 +67,15 @@ print(list(zipped))
 # 输出结果：
 [(1, 4), (2, 5), (3, 6)]
 ```
+### 4.
+```
+value = (1,2,3)
+a,b,c = value
+print(a)
+print(b)
+print(c)
+#运行结果：
+1
+2
+3
+```
